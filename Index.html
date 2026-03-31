@@ -3,46 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MovieHub | Watch & Discover</title>
+    <title>MovieHub | Stream Info & Reviews</title>
     <style>
         :root { --main-red: #e50914; --dark-bg: #141414; --card-bg: #222; }
-        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: var(--dark-bg); color: white; margin: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--dark-bg); color: white; margin: 0; }
         
         header { background: #000; padding: 20px; text-align: center; border-bottom: 3px solid var(--main-red); position: sticky; top: 0; z-index: 100; }
-        #search { padding: 12px; width: 70%; max-width: 500px; border-radius: 25px; border: none; outline: none; background: #333; color: white; }
+        .search-container { margin-top: 15px; }
+        #search { padding: 10px; width: 60%; max-width: 400px; border-radius: 20px; border: none; outline: none; }
         
-        .container { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; padding: 25px; }
-        .movie-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; transition: 0.3s; display: flex; flex-direction: column; }
-        .movie-card:hover { transform: scale(1.03); box-shadow: 0 10px 25px rgba(0,0,0,0.7); }
-        .movie-card img { width: 100%; height: 320px; object-fit: cover; }
-        
-        .movie-info { padding: 15px; flex-grow: 1; }
-        .movie-info h3 { margin: 0 0 10px; font-size: 1.1rem; color: #fff; }
-        .rating { color: #f5c518; font-weight: bold; margin-bottom: 15px; }
+        .container { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; padding: 20px; }
+        .movie-card { background: var(--card-bg); border-radius: 10px; overflow: hidden; transition: 0.3s; cursor: pointer; position: relative; }
+        .movie-card:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .movie-card img { width: 100%; height: auto; display: block; }
+        .movie-info { padding: 12px; font-size: 14px; }
+        .movie-info h3 { margin: 0 0 8px 0; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .rating { color: #f5c518; font-weight: bold; display: flex; align-items: center; gap: 5px; }
 
-        /* Buttons */
-        .btn-group { display: flex; gap: 10px; flex-direction: column; }
-        .btn { padding: 10px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; text-align: center; text-decoration: none; transition: 0.2s; }
-        .btn-watch { background: var(--main-red); color: white; }
-        .btn-watch:hover { background: #ff0f1b; }
-        .btn-info { background: #444; color: white; font-size: 12px; }
-        .btn-info:hover { background: #666; }
-
-        .ad-banner { background: #1a1a1a; margin: 20px auto; padding: 15px; width: 85%; text-align: center; border: 1px solid #333; }
+        .ad-banner { background: #333; margin: 15px auto; padding: 10px; width: 90%; text-align: center; border: 1px dashed #777; color: #aaa; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1 style="color: var(--main-red); margin-bottom: 15px;">MOVIEHUB</h1>
-    <input type="text" id="search" placeholder="Search for movies or actors...">
+    <h1 style="color: var(--main-red); margin: 0;">MOVIEHUB</h1>
+    <div class="search-container">
+        <input type="text" id="search" placeholder="Search for a movie...">
+    </div>
 </header>
 
 <div class="ad-banner">
-    <small style="color:#555">Promoted Content</small>
+    [AD SPACE: Paste your Banner Script here]
 </div>
 
 <div class="container" id="movie-grid"></div>
+
+<div class="ad-banner">
+    [AD SPACE: Footer Ad]
+</div>
 
 <script>
     const API_KEY = 'ada638821c7a8c90608983ddceccf20c';
@@ -63,7 +61,7 @@
     function showMovies(movies) {
         movieGrid.innerHTML = '';
         movies.forEach(movie => {
-            const { title, poster_path, vote_average, id } = movie;
+            const { title, poster_path, vote_average, overview } = movie;
             const movieEl = document.createElement('div');
             movieEl.classList.add('movie-card');
             
@@ -74,30 +72,29 @@
                 <div class="movie-info">
                     <h3>${title}</h3>
                     <div class="rating">⭐ ${vote_average.toFixed(1)}</div>
-                    <div class="btn-group">
-                        <a href="https://www.youtube.com/results?search_query=${title}+official+trailer" target="_blank" class="btn btn-watch">▶ Watch Trailer</a>
-                        <button onclick="getStreaming(${id})" class="btn btn-info">Check Availability</button>
-                    </div>
                 </div>
             `;
+            
+            movieEl.onclick = () => alert(`Plot: ${overview}`);
             movieGrid.appendChild(movieEl);
         });
     }
 
-    // Function to simulate finding where to watch
-    function getStreaming(movieId) {
-        // You can link this to your Watchmode URL or a Google Search
-        window.open(`https://www.google.com/search?q=where+to+watch+movie+id+${movieId}`, '_blank');
-    }
-
     searchInput.addEventListener('keyup', (e) => {
         const term = e.target.value;
-        if(term) {
+        if(term && term !== '') {
             getMovies(`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${term}`);
         } else {
             getMovies(`${BASE_URL}/discover/movie?sort_by=popularity.desc&api_key=${API_KEY}`);
         }
     });
+
+    // ✅ REGISTER SERVICE WORKER (THIS IS THE KEY PART)
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw-1.js')
+        .then(() => console.log('Service Worker Registered'))
+        .catch(err => console.log('Service Worker Failed:', err));
+    }
 </script>
 
 </body>
