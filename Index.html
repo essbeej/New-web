@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="monetag" content="bd7e83b68b1afb6d3330154e8537adf4">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MovieHub | Stream Info & Reviews</title>
@@ -33,13 +34,13 @@
 </header>
 
 <div class="ad-banner">
-    [AD SPACE: Paste your Banner Script here]
+    [TOP AD SPACE]
 </div>
 
 <div class="container" id="movie-grid"></div>
 
 <div class="ad-banner">
-    [AD SPACE: Footer Ad]
+    [BOTTOM AD SPACE]
 </div>
 
 <script>
@@ -89,11 +90,13 @@
         }
     });
 
-    // ✅ REGISTER SERVICE WORKER (THIS IS THE KEY PART)
+    // ✅ REGISTER SERVICE WORKER (Connecting to your sw-1.js file)
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw-1.js')
-        .then(() => console.log('Service Worker Registered'))
-        .catch(err => console.log('Service Worker Failed:', err));
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw-1.js')
+            .then(reg => console.log('Service Worker Active:', reg.scope))
+            .catch(err => console.log('Service Worker Error:', err));
+        });
     }
 </script>
 
