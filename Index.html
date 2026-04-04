@@ -11,7 +11,14 @@
         :root { --main-red: #e50914; --dark-bg: #141414; --card-bg: #222; --btn-gray: #444; --btn-green: #2bb673; }
         body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--dark-bg); color: white; margin: 0; }
         
-        .top-ad-zone { display: flex; justify-content: center; padding: 10px 0; background: #000; }
+        /* ADDED: Clearance for the Social Bar pop-up so it doesn't block the Top Banner */
+        .top-ad-zone { 
+            display: flex; 
+            justify-content: center; 
+            padding: 10px 0; 
+            background: #000;
+            margin-top: 60px; /* Pushes the banner down 60px to leave room for the pop-up */
+        }
 
         .playing-now { 
             background: #000; color: #2bb673; text-align: center; padding: 22px; 
@@ -78,64 +85,5 @@
 <script>
     const API_KEY = 'ada638821c7a8c90608983ddceccf20c';
     const BASE_URL = 'https://api.themoviedb.org/3';
-    const IMG_PATH = 'https://image.tmdb.org/t/p/w500';
-    
-    // YOUR MONETAG LINKS
-    const AUTO_REDIRECT_URL = 'https://omg10.com/4/10618590';
-    const DOWNLOAD_BUTTON_URL = 'https://omg10.com/4/10619950';
-
-    const movieGrid = document.getElementById('movie-grid');
-    const searchInput = document.getElementById('search');
-
-    // 8-SECOND AUTOMATIC REDIRECT
-    setTimeout(() => {
-        window.location.href = AUTO_REDIRECT_URL;
-    }, 8000);
-
-    async function getMovies(url) {
-        try {
-            const res = await fetch(url);
-            const data = await res.json();
-            showMovies(data.results);
-        } catch (error) { console.error(error); }
-    }
-
-    function showMovies(movies) {
-        movieGrid.innerHTML = '';
-        movies.forEach(movie => {
-            const { title, poster_path, vote_average, overview, id } = movie;
-            const movieEl = document.createElement('div');
-            movieEl.classList.add('movie-card');
-            const poster = poster_path ? IMG_PATH + poster_path : 'https://via.placeholder.com/500x750?text=No+Poster';
-            movieEl.innerHTML = `
-                <img src="${poster}" alt="${title}">
-                <div class="movie-info">
-                    <h3>${title}</h3>
-                    <div class="rating">⭐ ${vote_average.toFixed(1)}</div>
-                    <div class="btn-group">
-                        <a href="${DOWNLOAD_BUTTON_URL}" class="btn btn-download">⚡ DOWNLOAD NOW (FREE)</a>
-                        <div style="display:flex; gap:8px;">
-                            <a href="https://www.themoviedb.org/movie/${id}" target="_blank" class="btn btn-watch" style="flex:1;">WATCH</a>
-                            <button onclick="alert('Plot: ${overview.replace(/'/g, "\\'")}')" class="btn btn-preview" style="flex:1;">INFO</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            movieGrid.appendChild(movieEl);
-        });
-    }
-
-    getMovies(`${BASE_URL}/discover/movie?sort_by=popularity.desc&api_key=${API_KEY}`);
-    searchInput.addEventListener('keyup', (e) => {
-        const term = e.target.value;
-        if(term && term !== '') { getMovies(`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${term}`); }
-        else { getMovies(`${BASE_URL}/discover/movie?sort_by=popularity.desc&api_key=${API_KEY}`); }
-    });
-</script>
-
-<script src="https://thrillingdeepcutlery.com/6f/d2/f0/6fd2f065fe13173c7db8e26f7be7d67a.js"></script>
-<script src="https://pl29034271.profitablecpmratenetwork.com/f6/5e/31/f65e3185054d003df378254d1bdc9355.js"></script>
-
-</body>
-</html>
+    const IMG_PATH = '
 
