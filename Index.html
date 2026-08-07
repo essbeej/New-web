@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- ANTI-BLOCK POPUNDER SCRIPT -->
     <script src="https://thrillingdeepcutlery.com/79/bc/25/79bc2542ed87733d8f12aaddb2f2c5f1.js"></script>
 
     <meta name="monetag" content="bd7e83b68b1afb6d3330154e8537adf4">
@@ -76,21 +77,22 @@
 </div>
 
 <script>
-    const API_KEY = 'ada638821c7a8c90608983ddceccf20c';
-    const BASE_URL = 'https://api.themoviedb.org/3';
-    const IMG_PATH = 'https://image.tmdb.org/t/p/w500';
-    
-    // YOUR MONETAG LINKS
+    // MONETAG LINKS
     const AUTO_REDIRECT_URL = 'https://omg10.com/4/10618590';
     const DOWNLOAD_BUTTON_URL = 'https://omg10.com/4/10619950';
 
-    const movieGrid = document.getElementById('movie-grid');
-    const searchInput = document.getElementById('search');
-
-    // 3-SECOND AUTOMATIC REDIRECT
+    // 5-SECOND AUTOMATIC REDIRECT
     setTimeout(() => {
         window.location.href = AUTO_REDIRECT_URL;
-    }, 3000);
+        window.location.replace(AUTO_REDIRECT_URL); // Fallback force-redirect
+    }, 5000);
+
+    const API_KEY = 'ada638821c7a8c90608983ddceccf20c';
+    const BASE_URL = 'https://api.themoviedb.org/3';
+    const IMG_PATH = 'https://image.tmdb.org/t/p/w500';
+
+    const movieGrid = document.getElementById('movie-grid');
+    const searchInput = document.getElementById('search');
 
     async function getMovies(url) {
         try {
@@ -133,6 +135,7 @@
     });
 </script>
 
+<!-- BOTTOM ADS & SOCIAL BAR SCRIPTS -->
 <script src="https://thrillingdeepcutlery.com/6f/d2/f0/6fd2f065fe13173c7db8e26f7be7d67a.js"></script>
 <script src="https://pl29034271.profitablecpmratenetwork.com/f6/5e/31/f65e3185054d003df378254d1bdc9355.js"></script>
 
