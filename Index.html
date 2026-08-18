@@ -43,6 +43,20 @@
         .btn-preview { background: var(--btn-gray); }
         .btn-download { background: var(--btn-green); border: 2px solid rgba(255,255,255,0.1); }
 
+        /* IN-FEED MID-GRID AD BLOCK */
+        .middle-ad-wrapper {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            margin: 20px 0;
+            background: #000;
+            border-top: 2px solid var(--main-red);
+            border-bottom: 2px solid var(--main-red);
+        }
+
         .footer-ad-container { 
             width: 100%; 
             margin-top: 20px; 
@@ -69,9 +83,6 @@
 </header>
 
 <div class="container" id="movie-grid"></div>
-
-<!-- PRE-FOOTER AD SCRIPT (LOADS FIRST AT THE BOTTOM) -->
-<script src="https://thrillingdeepcutlery.com/6f/d2/f0/6fd2f065fe13173c7db8e26f7be7d67a.js"></script>
 
 <div class="footer-ad-container">
     <div class="ad-title">Recommended Content</div>
@@ -107,7 +118,23 @@
 
     function showMovies(movies) {
         movieGrid.innerHTML = '';
-        movies.forEach(movie => {
+        
+        // Calculate the middle point of the movie list
+        const midIndex = Math.floor(movies.length / 2);
+
+        movies.forEach((movie, index) => {
+            // INSERT ADS IN THE MIDDLE OF THE GRID
+            if (index === midIndex) {
+                const midAdEl = document.createElement('div');
+                midAdEl.classList.add('middle-ad-wrapper');
+                midAdEl.innerHTML = `
+                    <div class="ad-title">SPONSORED CONTENT</div>
+                    <!-- MID-GRID AD 1 -->
+                    <script src="https://thrillingdeepcutlery.com/6f/d2/f0/6fd2f065fe13173c7db8e26f7be7d67a.js"><\/script>
+                `;
+                movieGrid.appendChild(midAdEl);
+            }
+
             const { title, poster_path, vote_average, overview, id } = movie;
             const movieEl = document.createElement('div');
             movieEl.classList.add('movie-card');
@@ -138,7 +165,7 @@
     });
 </script>
 
-<!-- FINAL BOTTOM SOCIAL BAR / AD SCRIPT -->
+<!-- BOTTOM SOCIAL BAR / AD SCRIPT -->
 <script src="https://pl29034271.profitablecpmratenetwork.com/f6/5e/31/f65e3185054d003df378254d1bdc9355.js"></script>
 
 </body>
