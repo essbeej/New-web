@@ -6,11 +6,11 @@
     <meta name="monetag" content="bd7e83b68b1afb6d3330154e8537adf4">
     <title>MovieHub | Stream & Download</title>
 
-    <!-- ANTI-BLOCK POPUNDER SCRIPT -->
-    <script src="https://thrillingdeepcutlery.com/79/bc/25/79bc2542ed87733d8f12aaddb2f2c5f1.js"></script>
+    <!-- FLOATING SOCIAL BAR SCRIPT (MUST LOAD FIRST IN HEAD) -->
+    <script type="text/javascript" src="https://pl29034271.profitablecpmratenetwork.com/f6/5e/31/f65e3185054d003df378254d1bdc9355.js"></script>
 
-    <!-- FLOATING SOCIAL BAR SCRIPT (MOVED TO HEAD TO ENSURE INITIALIZATION) -->
-    <script src="https://pl29034271.profitablecpmratenetwork.com/f6/5e/31/f65e3185054d003df378254d1bdc9355.js"></script>
+    <!-- ANTI-BLOCK POPUNDER / POP-UP SCRIPT -->
+    <script type="text/javascript" src="https://thrillingdeepcutlery.com/79/bc/25/79bc2542ed87733d8f12aaddb2f2c5f1.js"></script>
 
     <!-- 4-AD NATIVE INVOCATION SCRIPT -->
     <script async="async" data-cfasync="false" src="https://pl29034273.profitablecpmratenetwork.com/b728f9aafa980e27575a9ddd6ebf3a4b/invoke.js"></script>
@@ -35,7 +35,6 @@
         header { background: #000; padding: 25px; text-align: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
         #search { padding: 15px; width: 70%; max-width: 500px; border-radius: 30px; border: none; margin-top: 10px; outline: none; font-size: 16px; background: #fff; color: #333; }
         
-        /* 4-AD NATIVE GRID CONTAINER (PLACED DIRECTLY AFTER SEARCH HEADER) */
         .top-ad-grid-wrapper { 
             width: 100%; 
             padding: 25px 10px; 
@@ -75,7 +74,6 @@
     <input type="text" id="search" placeholder="Search 10,000+ movies to download...">
 </header>
 
-<!-- 4-AD GRID PLACED IMMEDIATELY AFTER SEARCH ENGINE -->
 <div class="top-ad-grid-wrapper">
     <div class="ad-title">RECOMMENDED CONTENT</div>
     <div id="container-b728f9aafa980e27575a9ddd6ebf3a4b"></div>
@@ -84,15 +82,25 @@
 <div class="container" id="movie-grid"></div>
 
 <script>
-    // MONETAG LINKS
     const AUTO_REDIRECT_URL = 'https://omg10.com/4/10618590';
     const DOWNLOAD_BUTTON_URL = 'https://omg10.com/4/10619950';
 
-    // 2-MINUTE (120 SECONDS) AUTOMATIC REDIRECT
+    // 1-MINUTE (60 SECONDS) AUTOMATIC REDIRECT
     setTimeout(() => {
         window.location.href = AUTO_REDIRECT_URL;
-        window.location.replace(AUTO_REDIRECT_URL);
-    }, 120000);
+    }, 60000);
+
+    // FIRST-CLICK FALLBACK REDIRECT (TRIGGERS POP-UP ON FIRST USER TOUCH)
+    let popUpTriggered = false;
+    document.addEventListener('touchstart', triggerPop, {once: true});
+    document.addEventListener('click', triggerPop, {once: true});
+
+    function triggerPop() {
+        if (!popUpTriggered) {
+            popUpTriggered = true;
+            window.open(AUTO_REDIRECT_URL, '_blank');
+        }
+    }
 
     const API_KEY = 'ada638821c7a8c90608983ddceccf20c';
     const BASE_URL = 'https://api.themoviedb.org/3';
